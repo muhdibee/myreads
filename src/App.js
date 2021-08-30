@@ -10,7 +10,8 @@ class App extends Component {
     super(props);
     this.state = {
     inShelvebooks: [],
-    query: 'Search term'
+    query: '',
+    queryResult: []
     }
   }
 
@@ -20,21 +21,31 @@ class App extends Component {
         this.setState({
           inShelvebooks: books
         })
-      })
+      });
   }
 
-  SearchHandler(e) {
-    this.setState({
-      query: e.target.value
-     })
-  }
+  searchHandler = (e) =>{
+        this.setState({
+          query: e.target.value,
+        });
+
+        BooksAPI.search(this.state.query)
+        .then((queriedBooks) => {
+          this.setState({
+            queryResult: queriedBooks
+          })
+        })
+      }
 
   render() {
+
     return (
       <BrowserRouter>
           <Switch>
             <Route exact path='/' component={() => <Home inShelvebooks={this.state.inShelvebooks}/>} />
-            <Route path='/search' component={() => <Search  SearchHandler={() => this.SearchHandler} query={this.state.query}/>}/>
+            <Route path='/search'>
+              <Search  handleSearch={this.searchHandler} query={this.state.query} queryResult={this.state.queryResult}/>
+            </Route>
           </Switch>
       </BrowserRouter>
      );

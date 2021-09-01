@@ -1,7 +1,7 @@
 import React, {} from 'react';
 import {Link} from 'react-router-dom';
 
- const Home = ({inShelvebooks}) => {
+ const Home = ({inShelvebooks,handleShelfChange, causeUpdate}) => {
    const currentRead = [];
    const wantToRead = [];
    const read = [];
@@ -27,7 +27,7 @@ import {Link} from 'react-router-dom';
      })
 
       return (
-            <div className="list-books">
+            <div className="list-books">{console.log(causeUpdate)}
               <div className="list-books-title">
                 <h1>MyReads</h1>
               </div>
@@ -35,7 +35,7 @@ import {Link} from 'react-router-dom';
                 <div>
                   <div className="bookshelf">
                     <h2 className="bookshelf-title currently-reading">Currently Reading</h2>
-                    <div className="bookshelf-books">
+                    <div className="bookshelf-books">{console.log(currentRead)}
                       <ol className="books-grid">
                             {currentRead.map((book) => {
                                 return(
@@ -44,7 +44,7 @@ import {Link} from 'react-router-dom';
                                         <div className="book-top">
                                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                                         <div className="book-shelf-changer">
-                                            <select >
+                                            <select value={book.shelf} onChange={(e) => handleShelfChange(book.id, e)}>
                                                 <option value="move" disabled>Move to...</option>
                                                 <option value="currentlyReading">Currently Reading</option>
                                                 <option value="wantToRead">Want to Read</option>
@@ -66,7 +66,7 @@ import {Link} from 'react-router-dom';
                   </div>
                   <div className="bookshelf">
                     <h2 className="bookshelf-title want-to-read">Want to Read</h2>
-                    <div className="bookshelf-books">
+                    <div className="bookshelf-books">{console.log(wantToRead)}
                     <ol className="books-grid">
                             {wantToRead.map((book) => {
                                 return(
@@ -75,7 +75,7 @@ import {Link} from 'react-router-dom';
                                         <div className="book-top">
                                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                                         <div className="book-shelf-changer">
-                                            <select>
+                                            <select value={book.shelf} onChange={(e) => handleShelfChange(book.id, e)}>
                                                 <option value="move" disabled>Move to...</option>
                                                 <option value="currentlyReading">Currently Reading</option>
                                                 <option value="wantToRead">Want to Read</option>
@@ -97,7 +97,7 @@ import {Link} from 'react-router-dom';
                   </div>
                   <div className="bookshelf">
                     <h2 className="bookshelf-title read">Read</h2>
-                    <div className="bookshelf-books">
+                    <div className="bookshelf-books">{console.log(read)}
                     <ol className="books-grid">
                             {read.map((book) => {
                                 return(
@@ -106,7 +106,7 @@ import {Link} from 'react-router-dom';
                                         <div className="book-top">
                                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                                         <div className="book-shelf-changer">
-                                            <select>
+                                            <select value={book.shelf} onChange={(e) => handleShelfChange(book.id, e)}>
                                                 <option value="move" disabled>Move to...</option>
                                                 <option value="currentlyReading">Currently Reading</option>
                                                 <option value="wantToRead">Want to Read</option>

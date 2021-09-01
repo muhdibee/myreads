@@ -11,8 +11,11 @@ class App extends Component {
     this.state = {
     inShelvebooks: [],
     query: '',
-    queryResult: []
-    }
+    queryResult: [],
+    causeUpdate: true,
+    key: 2
+    };
+    this.handleShelfChange = this.handleShelfChange.bind(this);
   }
 
   componentDidMount() {
@@ -25,10 +28,7 @@ class App extends Component {
   }
 
   searchHandler = (e) =>{
-        this.setState({
-          query: e.target.value,
-        });
-
+        this.setState({query: e.target.value});
         BooksAPI.search(this.state.query)
         .then((queriedBooks) => {
           this.setState({
@@ -36,15 +36,37 @@ class App extends Component {
           })
         })
       }
+shouldComponentUpdate() {
+  return true
+}
+
+    handleShelfChange (bookId, shelf) {
+      this.setState((currentState) => ({
+        causeUpdate: !currentState.causeUpdate
+      }));
+      BooksAPI.update({id:bookId}, shelf.target.value)
+      .then((res => {
+        this.setState({
+          ...this.inShelvebooks
+        })
+      }));
+      this.setState((currentState) => ({
+        inShelvebooks: currentState.filter((book) =>{ return book.id != bookId})
+        // causeUpdate: !currentState.causeUpdate,
+        // inShelvebooks: [...currentState.inShelvebooks]
+      }));
+      this.setState({ key: Math.random() });
+      // Location.reload(true);
+    }
 
   render() {
 
     return (
       <BrowserRouter>
           <Switch>
-            <Route exact path='/' component={() => <Home inShelvebooks={this.state.inShelvebooks}/>} />
+            <Route exact path='/' component={() => <Home inShelvebooks={this.state.inShelvebooks} handleShelfChange={this.handleShelfChange} causeUpdate={this.state.causeUpdate}/>} />
             <Route path='/search'>
-              <Search  handleSearch={this.searchHandler} query={this.state.query} queryResult={this.state.queryResult}/>
+              <Search  handleSearch={this.searchHandler} query={this.state.query} queryResult={this.state.queryResult} handleShelfChange={this.handleShelfChange} causeUpdate={this.state.causeUpdate}/>
             </Route>
           </Switch>
       </BrowserRouter>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import * as BooksAPI from './BooksAPI';
+import * as BookAPI from './BooksAPI';
 import './App.css';
 import Home from './HomePage';
 import Search from './SearchPage'
@@ -12,14 +12,12 @@ class App extends Component {
     inShelvebooks: [],
     query: '',
     queryResult: [],
-    causeUpdate: true,
-    key: 2
     };
-    this.handleShelfChange = this.handleShelfChange.bind(this);
+    this.handleHomePageShelfChange = this.handleHomePageShelfChange.bind(this);
   }
 
   componentDidMount() {
-    BooksAPI.getAll()
+    BookAPI.getAll()
       .then((books) => {
         this.setState({
           inShelvebooks: books
@@ -29,44 +27,46 @@ class App extends Component {
 
   searchHandler = (e) =>{
         this.setState({query: e.target.value});
-        BooksAPI.search(this.state.query)
+        BookAPI.search(this.state.query)
         .then((queriedBooks) => {
           this.setState({
             queryResult: queriedBooks
           })
         })
       }
-shouldComponentUpdate() {
-  return true
-}
 
-    handleShelfChange (bookId, shelf) {
-      this.setState((currentState) => ({
-        causeUpdate: !currentState.causeUpdate
-      }));
-      BooksAPI.update({id:bookId}, shelf.target.value)
-      .then((res => {
+    handleHomePageShelfChange (bookId, shelf) {
+      BookAPI.update({id:bookId}, shelf.target.value);
+      BookAPI.getAll()
+      .then((books) => {
         this.setState({
-          ...this.inShelvebooks
+          inShelvebooks: books
         })
-      }));
-      this.setState((currentState) => ({
-        inShelvebooks: currentState.filter((book) =>{ return book.id != bookId})
-        // causeUpdate: !currentState.causeUpdate,
-        // inShelvebooks: [...currentState.inShelvebooks]
-      }));
-      this.setState({ key: Math.random() });
-      // Location.reload(true);
+      })
     }
+
+    handleSearchPageShelfChange (bookId, shelf) {
+      BookAPI.update({id:bookId}, shelf.target.value)
+      .catch();
+      this.forceUpdate() //trying to update the component.
+      
+      // BookAPI.getAll()
+      // .then((books) => {
+      //   this.setState({
+      //     inShelvebooks: books
+      //   })
+      // })
+    }
+
 
   render() {
 
     return (
       <BrowserRouter>
           <Switch>
-            <Route exact path='/' component={() => <Home inShelvebooks={this.state.inShelvebooks} handleShelfChange={this.handleShelfChange} causeUpdate={this.state.causeUpdate}/>} />
+            <Route exact path='/' component={() => <Home inShelvebooks={this.state.inShelvebooks} handleHomePageShelfChange={this.handleHomePageShelfChange}/>} />
             <Route path='/search'>
-              <Search  handleSearch={this.searchHandler} query={this.state.query} queryResult={this.state.queryResult} handleShelfChange={this.handleShelfChange} causeUpdate={this.state.causeUpdate}/>
+              <Search  handleSearch={this.searchHandler} query={this.state.query} queryResult={this.state.queryResult} handleSearchPageShelfChange={this.handleSearchPageShelfChange}/>
             </Route>
           </Switch>
       </BrowserRouter>

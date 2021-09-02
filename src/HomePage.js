@@ -1,7 +1,7 @@
 import React, {} from 'react';
 import {Link} from 'react-router-dom';
 
- const Home = ({inShelvebooks,handleShelfChange, causeUpdate}) => {
+ const Home = ({inShelvebooks,handleHomePageShelfChange}) => {
    const currentRead = [];
    const wantToRead = [];
    const read = [];
@@ -27,7 +27,7 @@ import {Link} from 'react-router-dom';
      })
 
       return (
-            <div className="list-books">{console.log(causeUpdate)}
+            <div className="list-books">{console.log()}
               <div className="list-books-title">
                 <h1>MyReads</h1>
               </div>
@@ -44,7 +44,7 @@ import {Link} from 'react-router-dom';
                                         <div className="book-top">
                                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                                         <div className="book-shelf-changer">
-                                            <select value={book.shelf} onChange={(e) => handleShelfChange(book.id, e)}>
+                                            <select value={book.shelf} onChange={(e) => handleHomePageShelfChange(book.id, e)}>
                                                 <option value="move" disabled>Move to...</option>
                                                 <option value="currentlyReading">Currently Reading</option>
                                                 <option value="wantToRead">Want to Read</option>
@@ -75,7 +75,7 @@ import {Link} from 'react-router-dom';
                                         <div className="book-top">
                                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                                         <div className="book-shelf-changer">
-                                            <select value={book.shelf} onChange={(e) => handleShelfChange(book.id, e)}>
+                                            <select value={book.shelf} onChange={(e) => handleHomePageShelfChange(book.id, e)}>
                                                 <option value="move" disabled>Move to...</option>
                                                 <option value="currentlyReading">Currently Reading</option>
                                                 <option value="wantToRead">Want to Read</option>
@@ -106,7 +106,7 @@ import {Link} from 'react-router-dom';
                                         <div className="book-top">
                                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                                         <div className="book-shelf-changer">
-                                            <select value={book.shelf} onChange={(e) => handleShelfChange(book.id, e)}>
+                                            <select value={book.shelf} onChange={(e) => handleHomePageShelfChange(book.id, e)}>
                                                 <option value="move" disabled>Move to...</option>
                                                 <option value="currentlyReading">Currently Reading</option>
                                                 <option value="wantToRead">Want to Read</option>

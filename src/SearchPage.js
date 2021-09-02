@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-export default function SearchPage({handleSearch, query, queryResult,handleShelfChange, causeUpdate}) {
+export default function SearchPage({handleSearch, query, queryResult,handleSearchPageShelfChange}) {
   const searchedBooks = [];
   if(Array.isArray(queryResult)){
     queryResult.map((books) => searchedBooks.push(books))
@@ -17,7 +17,7 @@ return (
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid">{console.log(searchedBooks, causeUpdate)}
+              <ol className="books-grid">{console.log(searchedBooks)}
                   {searchedBooks.length === 0 ? <h1 style={{color: "#D3D3D3"}}>Please provide a registered search term</h1>:
                   searchedBooks.map((book) => {
                       return(
@@ -26,7 +26,7 @@ return (
                               <div className="book-top">
                               <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
                               <div className="book-shelf-changer">
-                                  <select value={book.shelf? book.shelf: "none"} onChange={(e) => handleShelfChange(book.id, e)}>
+                                  <select value={book.shelf? book.shelf: "none"} onChange={(e) => handleSearchPageShelfChange(book.id, e)}>
                                       <option value="move" disabled>Move to...</option>
                                       <option value="currentlyReading">Currently Reading</option>
                                       <option value="wantToRead">Want to Read</option>

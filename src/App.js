@@ -14,6 +14,8 @@ class App extends Component {
     queryResult: [],
     };
     this.handleHomePageShelfChange = this.handleHomePageShelfChange.bind(this);
+    this.changeShelf = this.changeShelf.bind(this);
+    this.updateHomePage= this.updateHomePage.bind(this)
   }
 
   componentDidMount() {
@@ -48,14 +50,30 @@ class App extends Component {
     handleSearchPageShelfChange (bookId, shelf) {
       BookAPI.update({id:bookId}, shelf.target.value)
       .catch();
-      this.forceUpdate() //trying to update the component.
-      
       // BookAPI.getAll()
       // .then((books) => {
       //   this.setState({
       //     inShelvebooks: books
       //   })
       // })
+      // .catch()
+    }
+
+    changeShelf (searchedBooks) {
+      this.setState({
+        queryResult: searchedBooks
+      });
+      this.updateHomePage()
+
+    }
+
+    updateHomePage() {
+      BookAPI.getAll()
+      .then((books) => {
+        this.setState({
+          inShelvebooks: books
+        })
+      });
     }
 
 
@@ -66,7 +84,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={() => <Home inShelvebooks={this.state.inShelvebooks} handleHomePageShelfChange={this.handleHomePageShelfChange}/>} />
             <Route path='/search'>
-              <Search  handleSearch={this.searchHandler} query={this.state.query} queryResult={this.state.queryResult} handleSearchPageShelfChange={this.handleSearchPageShelfChange}/>
+              <Search  handleSearch={this.searchHandler} query={this.state.query} queryResult={this.state.queryResult} handleSearchPageShelfChange={this.handleSearchPageShelfChange} changeShelf= {this.changeShelf}/>
             </Route>
           </Switch>
       </BrowserRouter>

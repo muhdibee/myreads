@@ -8,7 +8,7 @@ export default function SearchPage({handleSearch, query, queryResult,handleSearc
   };
 
   function handleBookChange(bookId, shelf) {
-    handleSearchPageShelfChange(bookId, shelf) ;
+    handleSearchPageShelfChange(bookId, shelf);
       let selectedBook = searchedBooks.find(book => book.id === bookId);
       selectedBook.shelf = shelf.target.value;
       let updatedBookList = searchedBooks.filter(book => book.id != bookId);

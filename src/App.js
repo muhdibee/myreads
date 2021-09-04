@@ -18,13 +18,18 @@ class App extends Component {
     this.updateHomePage= this.updateHomePage.bind(this)
   }
 
-  componentDidMount() {
+  updateHomePage() {
     BookAPI.getAll()
-      .then((books) => {
-        this.setState({
-          inShelvebooks: books
-        })
-      });
+    .then((books) => {
+      this.setState({
+        inShelvebooks: books
+      })
+    });
+  }
+
+
+  componentDidMount() {
+    this.updateHomePage()
   }
 
   searchHandler = (e) =>{
@@ -38,25 +43,22 @@ class App extends Component {
       }
 
     handleHomePageShelfChange (bookId, shelf) {
-      BookAPI.update({id:bookId}, shelf.target.value);
-      BookAPI.getAll()
-      .then((books) => {
-        this.setState({
-          inShelvebooks: books
-        })
+      let selectedBook = this.state.inShelvebooks.find(book => book.id === bookId);
+      selectedBook.shelf = shelf.target.value;
+      let updatedBookList = this.state.inShelvebooks.filter(book => book.id != bookId);
+      updatedBookList.push(selectedBook);
+      this.setState({
+        inShelvebooks: updatedBookList
       })
+
+      BookAPI.update({id:bookId}, shelf.target.value)
+      .catch();
+
     }
 
     handleSearchPageShelfChange (bookId, shelf) {
       BookAPI.update({id:bookId}, shelf.target.value)
       .catch();
-      // BookAPI.getAll()
-      // .then((books) => {
-      //   this.setState({
-      //     inShelvebooks: books
-      //   })
-      // })
-      // .catch()
     }
 
     changeShelf (searchedBooks) {
@@ -64,16 +66,6 @@ class App extends Component {
         queryResult: searchedBooks
       });
       this.updateHomePage()
-
-    }
-
-    updateHomePage() {
-      BookAPI.getAll()
-      .then((books) => {
-        this.setState({
-          inShelvebooks: books
-        })
-      });
     }
 
 

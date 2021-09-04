@@ -42,7 +42,9 @@ import {Link} from 'react-router-dom';
                                   <li key={book.id}>
                                     <div className="book">
                                         <div className="book-top">
-                                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                                        <a href= {book.previewLink} target="_blank">
+                                          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>
+                                        </a>
                                         <div className="book-shelf-changer">
                                             <select value={book.shelf} onChange={(e) => handleHomePageShelfChange(book.id, e)}>
                                                 <option value="move" disabled>Move to...</option>
@@ -73,7 +75,9 @@ import {Link} from 'react-router-dom';
                                   <li key={book.id}>
                                     <div className="book">
                                         <div className="book-top">
-                                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                                        <a href= {book.previewLink} target="_blank">
+                                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                                        </a>
                                         <div className="book-shelf-changer">
                                             <select value={book.shelf} onChange={(e) => handleHomePageShelfChange(book.id, e)}>
                                                 <option value="move" disabled>Move to...</option>
@@ -104,7 +108,9 @@ import {Link} from 'react-router-dom';
                                   <li key={book.id}>
                                     <div className="book">
                                         <div className="book-top">
-                                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                                        <a href= {book.previewLink} target="_blank">
+                                           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                                        </a>
                                         <div className="book-shelf-changer">
                                             <select value={book.shelf} onChange={(e) => handleHomePageShelfChange(book.id, e)}>
                                                 <option value="move" disabled>Move to...</option>

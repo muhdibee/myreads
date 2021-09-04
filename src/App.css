@@ -70,6 +70,7 @@ body, .app {
 
 .open-search button:hover {
   background-color: rgb(0, 102, 0);
+  cursor: pointer;
 }
 
 
@@ -111,6 +112,7 @@ body, .app {
   font-size: 0;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 button:active {
@@ -183,6 +185,11 @@ button:active {
   height: 100%;
   opacity: 0;
   cursor: pointer;
+}
+
+.book-shelf-changer:hover {
+  background-color: rgb(11, 117, 11);
+
 }
 
 /* book cover */

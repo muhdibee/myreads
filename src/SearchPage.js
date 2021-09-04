@@ -28,14 +28,15 @@ return (
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid">{console.log(searchedBooks)}
+              <ol className="books-grid">
                   {searchedBooks.length === 0 ? <h1 style={{color: "#D3D3D3"}}>Please provide a registered search term</h1>:
-                  searchedBooks.map((book) => {
+                  searchedBooks.map((book) => { console.log(book)
+                    let bookUrl = book.imageLinks ? book.imageLinks.thumbnail : "";
                       return(
                         <li>
                           <div className="book">
                               <div className="book-top">
-                              <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                              <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${bookUrl})` }}></div>
                               <div className="book-shelf-changer">
                                   <select value={book.shelf ? book.shelf: "none"} onChange={(e) => handleBookChange(book.id, e)}>
                                       <option value="move" disabled>Move to...</option>

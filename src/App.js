@@ -40,6 +40,7 @@ class App extends Component {
             queryResult: queriedBooks
           })
         })
+        console.log(this.state.query)
       }
 
     handleHomePageShelfChange (bookId, shelf) {

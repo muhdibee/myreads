@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import {BrowserRouter, Switch, Route } from 'react-router-dom';
 import * as BookAPI from './BooksAPI';
 import './App.css';
 import Home from './HomePage';
 import Search from './SearchPage'
-import {BrowserRouter, Switch, Route } from 'react-router-dom';
+import ErrorPage from './ErrorPage';
 
 class App extends Component {
   constructor(props){
@@ -33,20 +34,38 @@ class App extends Component {
   }
 
   searchHandler = (e) =>{
-        this.setState({query: e.target.value});
+    this.setState({query: e.target.value});
         BookAPI.search(this.state.query)
         .then((queriedBooks) => {
+          let searchedBooksWithShelf = [];
+          if (Array.isArray(queriedBooks)){
+            queriedBooks.map((book) => {
+            let foundBook;
+            let foundBookInHomePage = this.state.inShelvebooks.filter((ibook)=> book.id === ibook.id)[0];
+            if (foundBookInHomePage){
+              foundBook = foundBookInHomePage;
+              searchedBooksWithShelf.push(foundBook)
+            } else{
+              foundBook = book;
+              foundBook.shelf = 'none';
+              searchedBooksWithShelf.push(foundBook)
+            }
+          });
           this.setState({
-            queryResult: queriedBooks
+            queryResult: searchedBooksWithShelf
           })
+          } else {
+            this.setState({
+              queryResult: []
+            })
+          }
         })
-        console.log(this.state.query)
       }
 
     handleHomePageShelfChange (bookId, shelf) {
       let selectedBook = this.state.inShelvebooks.find(book => book.id === bookId);
       selectedBook.shelf = shelf.target.value;
-      let updatedBookList = this.state.inShelvebooks.filter(book => book.id != bookId);
+      let updatedBookList = this.state.inShelvebooks.filter(book => book.id !== bookId);
       updatedBookList.push(selectedBook);
       this.setState({
         inShelvebooks: updatedBookList
@@ -76,9 +95,10 @@ class App extends Component {
       <BrowserRouter>
           <Switch>
             <Route exact path='/' component={() => <Home inShelvebooks={this.state.inShelvebooks} handleHomePageShelfChange={this.handleHomePageShelfChange}/>} />
-            <Route path='/search'>
+            <Route exact path='/search'>
               <Search  handleSearch={this.searchHandler} query={this.state.query} queryResult={this.state.queryResult} handleSearchPageShelfChange={this.handleSearchPageShelfChange} changeShelf= {this.changeShelf}/>
             </Route>
+            <Route component={ErrorPage}/>
           </Switch>
       </BrowserRouter>
      );

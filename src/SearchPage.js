@@ -3,17 +3,19 @@ import {Link} from 'react-router-dom'
 import {DebounceInput} from 'react-debounce-input'
 
 export default function SearchPage({handleSearch, query, queryResult,handleSearchPageShelfChange, changeShelf}) {
+  console.log(queryResult)
   let searchedBooks = [];
   if(Array.isArray(queryResult)){
     queryResult.map((books) => searchedBooks.push(books))
-  };
+  }
+  else {}
 
   function handleBookChange(bookId, shelf) {
     handleSearchPageShelfChange(bookId, shelf);
       let selectedBook = searchedBooks.find(book => book.id === bookId);
       let selectedBookIndex = searchedBooks.indexOf(selectedBook);
       selectedBook.shelf = shelf.target.value;
-      let updatedBookList = searchedBooks.filter(book => book.id != bookId);
+      let updatedBookList = searchedBooks.filter(book => book.id !== bookId);
       updatedBookList.splice(selectedBookIndex, 0, selectedBook);
       searchedBooks = updatedBookList;
       changeShelf(searchedBooks)
@@ -33,7 +35,7 @@ return (
                   searchedBooks.map((book) => {
                     let bookUrl = book.imageLinks ? book.imageLinks.thumbnail : "";
                       return(
-                        <li>
+                        <li key ={book.id}>
                           <div className="book">
                               <div className="book-top">
                               <a href= {book.previewLink} target="_blank">

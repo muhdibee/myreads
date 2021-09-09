@@ -35,7 +35,7 @@ import {Link} from 'react-router-dom';
                 <div>
                   <div className="bookshelf">
                     <h2 className="bookshelf-title currently-reading">Currently Reading</h2>
-                    <div className="bookshelf-books">{console.log(currentRead)}
+                    <div className="bookshelf-books">{/* {console.log(currentRead)} */}
                       <ol className="books-grid">
                             {currentRead.map((book) => {
                                 return(
@@ -68,7 +68,7 @@ import {Link} from 'react-router-dom';
                   </div>
                   <div className="bookshelf">
                     <h2 className="bookshelf-title want-to-read">Want to Read</h2>
-                    <div className="bookshelf-books">{console.log(wantToRead)}
+                    <div className="bookshelf-books"> {/* {console.log(wantToRead)} */}
                     <ol className="books-grid">
                             {wantToRead.map((book) => {
                                 return(
@@ -101,7 +101,7 @@ import {Link} from 'react-router-dom';
                   </div>
                   <div className="bookshelf">
                     <h2 className="bookshelf-title read">Read</h2>
-                    <div className="bookshelf-books">{console.log(read)}
+                    <div className="bookshelf-books">{/* {console.log(read)} */}
                     <ol className="books-grid">
                             {read.map((book) => {
                                 return(

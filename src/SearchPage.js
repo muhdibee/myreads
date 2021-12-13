@@ -1,6 +1,7 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import {DebounceInput} from 'react-debounce-input'
+import React from 'react';
+import {Link} from 'react-router-dom';
+import {DebounceInput} from 'react-debounce-input';
+import {searchTerms} from './searchTerms'
 
 export default function SearchPage({handleSearch, query, queryResult,handleSearchPageShelfChange, changeShelf}) {
   console.log(queryResult)
@@ -31,7 +32,7 @@ return (
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                  {searchedBooks.length === 0 ? <h1 style={{color: "#D3D3D3"}}>Please provide a registered search term</h1>:
+                  {searchedBooks.length === 0 ? <HowtoSearch />:
                   searchedBooks.map((book) => {
                     let bookUrl = book.imageLinks ? book.imageLinks.thumbnail : "";
                       return(
@@ -63,4 +64,20 @@ return (
             </div>
         </div>
     )
+}
+
+function HowtoSearch () {
+  return(
+    <div className='search-page-text-color'>
+      <h1 className="text-center">Please provide a registered search term in the search field above</h1>
+      <div className="text-center">
+        <h2 >See some search terms below:</h2>
+        <div className="text-div">
+          {searchTerms.map((term) => <h4 style={{margin:'3px', padding:'3px', border: "1px ridge"}}>{term}</h4>)}
+        </div>
+      </div>
+      <p></p>
+    </div>
+
+  )
 }

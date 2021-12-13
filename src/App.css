@@ -204,3 +204,28 @@ button:active {
   text-align: center;
   font-size: 0.8em;
 }
+
+.search-page-text-color {
+  color: #D3D3D3
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 55%;
+  align-self: center;
+  margin: auto auto;
+  /* border-radius: 16px; */
+  /* border:1px ridge; */
+}
+.text-center {
+  text-align: center;
+}

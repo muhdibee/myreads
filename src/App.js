@@ -44,11 +44,11 @@ class App extends Component {
             let foundBookInHomePage = this.state.inShelvebooks.filter((ibook)=> book.id === ibook.id)[0];
             if (foundBookInHomePage){
               foundBook = foundBookInHomePage;
-              searchedBooksWithShelf.push(foundBook)
+              return searchedBooksWithShelf.push(foundBook)
             } else{
               foundBook = book;
               foundBook.shelf = 'none';
-              searchedBooksWithShelf.push(foundBook)
+              return searchedBooksWithShelf.push(foundBook)
             }
           });
           this.setState({

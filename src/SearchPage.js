@@ -39,7 +39,7 @@ return (
                         <li key ={book.id}>
                           <div className="book">
                               <div className="book-top">
-                              <a href= {book.previewLink} target="_blank">
+                              <a href= {book.previewLink} target="_blank" rel="noopener noreferrer">
                                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${bookUrl})` }}></div>
                               </a>
                               <div className="book-shelf-changer">

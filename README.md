@@ -1,6 +1,6 @@
 # MyReads Project
 
-This app helps you categorise your books in shelfs which are 1. Currently reading  2. Want to read  3. Read. It also allows your search a book using some specific terms, to add either of your shelfs.
+This app helps you categorize your books into shelfs/categories namely: Currently reading, Want to read and Read. It also allows you to add a book to your shelf by searching using the book title or the author.
 
 
 To see the app in action:
